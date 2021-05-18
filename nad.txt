@@ -1,0 +1,114 @@
+//fill in array 
+	while(count1!=numberOfLines)
+	{	
+		for(a =0; a<numberOfLines;a++)
+		{
+			
+			for(b =0; b<numberOfCourses; b++)
+			{
+				//adj[a][b] = 0;
+				if(strcmp(vertex[a],arr[b])== 0 && a!=b)
+				{
+					adj[a][count2] = 1;
+					//printf("%d\n", adj[a][count2]);
+				}
+				if(a == b)
+				{
+					adj[a][count2] = 0;
+					//printf("%d\n", adj[a][count2]);
+				}
+				if( count2 < 3)
+				{
+					count2++;
+				}
+			}
+			//count2++;
+		}
+		count1++;
+		count2 = 0;
+	}
+	
+	
+	for(a =0; a<numberOfLines;a++)
+	{
+		printf("\n");
+		for(b =0; b<numberOfLines; b++)
+		{
+			printf("%d", adj[a][b]);
+		}
+	}
+	
+	
+	
+	
+	
+	int m=0,n=0;
+	int u,l;
+	/*
+	for(u =0; u< numberOfLines; u++)
+	{
+		for(l= 0; l<numberOfLines; l++)
+		{
+			if(	strcmp(vertex[u], subarr[l]) == 0, && u != l)
+			{
+				adj[u][l] = 1;
+			}
+			
+			else
+			{
+				adj[u][l] = 0;
+			}
+		}
+	}
+	*/
+	
+	
+	
+	/*
+	
+	while(count1!=numberOfLines)
+	{	
+		for(a =0; a<numberOfLines;a++)
+		{
+			
+			for(b =0; b<numberOfCourses; b++)
+			{
+				//adj[a][b] = 0;
+				if(strcmp(vertex[a],arr[b])== 0 && a!=b)2
+				{
+					adj[a][count2] = 1;
+					printf("%d\n", adj[a][count2]);
+				}
+				if(a == b)
+				{
+					adj[a][count2] = 0;
+					printf("%d\n", adj[a][count2]);
+				}
+				if( count2 < 3)
+				{
+				count2++;
+				}
+			}
+			//count2++;
+		}
+		count1++;
+		count2 = 0;
+	}
+	*/
+	
+	
+
+	//store vertexes
+
+
+	
+	
+	
+	//you now have the entire line
+	//the first word in the line is the class, the rest are the prereqs
+	//store each wor in a line 
+	
+	//now do correspondence
+	
+	
+	

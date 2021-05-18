@@ -1,0 +1,253 @@
+#include "stdio.h"
+#include <math.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+
+int search( char classes[], char vertex[] )
+{
+	int n =0, m =0, times =0;
+	int len = strlen(vertex);
+	
+	while(classes[n] != '\0')
+	{
+		if( classes[n] == vertex[m])
+		{
+			while( classes[n] == vertex[m] && classes[n] != '\0')
+			{
+				n++;
+				m++;
+			}
+			
+			if( m == len && (classes[n] == ' ' || classes[n] == '\0'))
+			{
+				times++;
+			}
+			
+		}
+		else
+		{
+			while(classes[n] != ' ')
+			{
+				n++;
+				if(classes[n] == '\0')
+				break;
+			}
+		}
+		n++;
+		m=0;
+	}
+	
+	if(times > 0)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+int main(int argc, char* argv)
+{
+	//get file 
+	printf("Please enter a a file name-->");
+	char* filename = (char *)malloc(sizeof(char)*30);
+	scanf("%s",filename);
+	
+	//open 2 files, onw to get number of lines 
+	FILE* file= fopen(filename,"r");
+	FILE* lineFile= fopen(filename,"r");
+	FILE* nextFile = fopen(filename, "r");
+	
+	//count number of lines in the file
+	int numberOfLines=0;
+	char sub[101];
+	while(fgets(sub,sizeof(sub),lineFile))
+	{
+		numberOfLines++;
+		
+	}
+	
+	fclose(lineFile);
+	
+	//printf("\n%d",numberOfLines);
+	
+	//create array to store the words in an array
+	char classes[numberOfLines][1001];
+	char vertex[numberOfLines][31];
+	
+	//read in each line of the file
+	char line[1001];
+	int counter = 0;
+	char *tok;
+	int i, j=0;
+	for(i = 0; i<numberOfLines;i++)
+	{
+		fgets(line, 1001, file);
+		strcpy(classes[i],line);
+		tok = strtok(line," ");
+		//printf("%s",line);
+		strcpy(vertex[i], tok);
+		//strcpy(classes[i],line);
+	}
+	fclose(file);
+	/*
+	for(i = 0; i<numberOfLines; i++)
+	{
+		printf("%s",classes[i]);
+		
+		
+	}
+	
+	for(i = 0; i<numberOfLines; i++)
+	{
+		printf("\n%s",vertex[i]);
+		
+		
+	}
+	*/
+	//only what is left after 
+	char subarr[1000][1000];
+	FILE* arrFile = fopen(filename, "r");
+	char line3[1000];
+	char *ret = NULL;
+	for(i = 0; i<numberOfLines;i++)
+	{
+		fgets(line3, 1001, file);
+		//strcpy(classes[i],line);
+		ret = strchr(line3,' ');
+		//printf("%s",ret);
+		strcpy(subarr[i], ret);
+		//strcpy(classes[i],line);
+	}
+	
+	//remove spaces at start of string
+	int c,v,x;
+	for(c = 0; c<numberOfLines; c++)
+	{
+		for(v = 0; v< 1000; v++)
+		{
+			if(subarr[i][v] != ' ')
+			{
+				subarr[i][x++] = subarr[i][v]; 
+			}
+		}
+		//printf("%s\n", subarr[i]);
+		
+		subarr[i][x] = '\0';
+	}	
+	fclose(arrFile);
+	
+	
+	
+	
+	
+	char line2[31];
+	char arr[30][1000];
+	i = 0;
+	//store vertexes
+	
+	
+	while(!feof(nextFile))
+	{
+		
+		fgets(line2, 31, nextFile);
+		tok = strtok(line2," ");
+		while(tok!=NULL)
+		{	
+			strcpy(arr[i], tok);
+			//printf("\n%s", arr[i]);
+			tok = strtok(NULL, " ");
+			i++;
+			
+		}
+		
+		
+	}
+	int numberOfCourses=i;
+	fclose(nextFile);
+	
+	
+	//adjacency matrix
+	//printf("%d\n", numberOfLines);
+	int adj[numberOfLines][numberOfLines];
+	int a,b;
+	for(a =0; a<numberOfLines;a++)
+	{
+		for(b =0; b<numberOfLines; b++)
+		{
+			adj[a][b] = 0;
+		}
+	}
+	
+	//change the entire array into numbers
+	
+	printf("\nNumber of verticies: %d\n", numberOfLines);
+	
+	printf("Vertex correspondence:\n");
+	for(a =0; a< numberOfLines; a++)
+	{
+		printf(" %d = %s \n", a, vertex[a]); 
+	}
+	
+	//find way to fill out adjacency matrix
+	//eliminate the first space in mini array
+	
+	char temp;
+	
+	for(a =0; a< numberOfLines; a++)
+	{
+		for(b = 0; b< 1000; b++)
+		{
+			subarr[a][b] = subarr[a][b+1];
+		}
+		//printf("%s\n" , subarr[a]);
+	}
+	
+	//search each line for the vertex 
+	
+	/*
+	for(a = 0; a< numberOfLines; a++)
+	{
+		len = strlen(vertex[a]);
+		
+		for(b = 0; b < 1000; b++)
+		{
+			while(classes[a][b] != '\0')
+			{
+				if( classes[a][b] == vertex
+			}
+		}
+	}
+	*/
+	
+	int solve;
+	for(a = 0; a< numberOfLines; a++)
+	{
+		for( b = 0; b< numberOfLines; b++)
+		{
+			solve = search( subarr[b], vertex[a]);//if 1, you found the class at that vertex
+			adj[a][b] = solve;
+			//printf("%d\n", solve);
+		}
+	}
+	
+	for(a = 0; a< numberOfLines; a++)
+	{
+		for(b = 0; b< numberOfLines; b++)
+		{
+			printf("%d", adj[a][b]);
+		}
+		printf("\n");
+	}
+	
+	
+	
+	
+	free(filename);
+	
+	
+	return 0;
+}
